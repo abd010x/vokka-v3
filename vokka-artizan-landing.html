@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sew custom clothes from Lagos' best artisans — entirely on WhatsApp. Send a design, get matched, get it delivered.">
+<title>Artizan — Custom Fashion on WhatsApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+:root {
+  --parchment: #F8F3EB;
+  --parchment-deep: #EFE7DA;
+  --espresso: #1C1410;
+  --cocoa: #3D2B22;
+  --terracotta: #B85C38;
+  --terracotta-light: #F5DDD3;
+  --terracotta-dark: #943E22;
+  --adire: #1B5E4B;
+  --adire-light: #D4EAE2;
+  --adire-dark: #134A3A;
+  --brass: #C79B4A;
+  --brass-light: #F7EDD5;
+  --brass-glow: rgba(199,155,74,0.15);
+  --stone: #9C8B7A;
+  --sand: #D6CBBE;
+  --wa-green: #25D366;
+  --wa-dark: #128C7E;
+  --wa-bg: #ECE5DD;
+  --wa-chat: #DCF8C6;
+  --white: #FFFFFF;
+  --serif: 'Fraunces', serif;
+  --sans: 'Plus Jakarta Sans', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); color: var(--espresso); background: var(--parchment); -webkit-font-smoothing: antialiased; }
+
+/* Lucide icon base */
+.lucide { display: inline-block; vertical-align: middle; color: currentColor; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(248,243,235,0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+.nav-inner { max-width: 1120px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: var(--serif); font-size: 26px; font-weight: 600; color: var(--cocoa); text-decoration: none; letter-spacing: -0.5px; }
+.logo span { color: var(--terracotta); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-size: 13.5px; color: var(--stone); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--espresso); }
+.btn-wa { display: inline-flex; align-items: center; gap: 8px; background: var(--wa-green); color: #fff; padding: 10px 22px; border-radius: 28px; font-size: 13.5px; font-weight: 600; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 2px 12px rgba(37,211,102,0.2); }
+.btn-wa:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,211,102,0.35); }
+.btn-wa svg, .btn-wa .lucide { width: 16px; height: 16px; }
+
+/* HERO */
+.hero { padding: 150px 28px 100px; max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--terracotta-light); color: var(--terracotta); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 24px; }
+.hero-eyebrow .lucide { width: 14px; height: 14px; }
+.hero h1 { font-family: var(--serif); font-size: 56px; line-height: 1.08; color: var(--espresso); margin-bottom: 24px; font-weight: 600; letter-spacing: -1px; }
+.hero h1 em { font-style: italic; color: var(--terracotta); font-weight: 400; }
+.hero-sub { font-size: 17px; color: var(--stone); max-width: 460px; margin-bottom: 36px; line-height: 1.75; }
+.hero-ctas { display: flex; gap: 14px; align-items: center; }
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--terracotta); color: #fff; padding: 15px 30px; border-radius: 32px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 16px rgba(184,92,56,0.25); }
+.btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(184,92,56,0.35); }
+.btn-primary .lucide { width: 18px; height: 18px; }
+.btn-secondary { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--cocoa); padding: 15px 24px; border-radius: 32px; font-size: 15px; font-weight: 500; text-decoration: none; border: 1.5px solid var(--sand); transition: all 0.2s; }
+.btn-secondary:hover { border-color: var(--cocoa); background: rgba(0,0,0,0.02); }
+
+/* Phone */
+.phone { width: 290px; margin: 0 auto; position: relative; }
+.phone-body { background: #111; border-radius: 36px; padding: 10px; box-shadow: 0 32px 80px rgba(28,20,16,0.18), 0 0 0 1px rgba(255,255,255,0.05) inset; }
+.phone-notch { width: 100px; height: 22px; background: #111; border-radius: 0 0 16px 16px; margin: 0 auto; position: relative; z-index: 2; margin-top: -1px; }
+.phone-screen { background: var(--wa-bg); border-radius: 28px; overflow: hidden; }
+.wa-header { background: var(--wa-dark); padding: 14px 16px 10px; display: flex; align-items: center; gap: 10px; }
+.wa-header .back { color: rgba(255,255,255,0.8); font-size: 18px; }
+.wa-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--terracotta), var(--brass)); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 16px; font-weight: 600; color: #fff; }
+.wa-name { color: #fff; font-size: 14px; font-weight: 600; }
+.wa-status { color: rgba(255,255,255,0.65); font-size: 11px; }
+.wa-body { padding: 10px; display: flex; flex-direction: column; gap: 5px; min-height: 360px; }
+.bubble { max-width: 88%; padding: 7px 10px; border-radius: 8px; font-size: 12px; line-height: 1.55; }
+.bubble-in { background: #fff; align-self: flex-start; border-top-left-radius: 2px; color: var(--espresso); }
+.bubble-out { background: var(--wa-chat); align-self: flex-end; border-top-right-radius: 2px; color: var(--espresso); }
+.bubble-time { font-size: 9.5px; color: var(--stone); text-align: right; margin-top: 2px; }
+.bubble strong { font-weight: 600; color: var(--cocoa); }
+.bubble-img { width: 100%; border-radius: 6px; margin-bottom: 4px; background: linear-gradient(135deg, var(--parchment-deep), var(--terracotta-light)); height: 80px; display: flex; align-items: center; justify-content: center; font-size: 32px; color: var(--terracotta); }
+.phone-glow { position: absolute; top: 50%; left: 50%; width: 320px; height: 320px; background: radial-gradient(circle, var(--brass-glow) 0%, transparent 70%); transform: translate(-50%, -50%); z-index: -1; pointer-events: none; }
+
+/* Woven divider */
+.woven { height: 4px; background: repeating-linear-gradient(90deg, var(--terracotta) 0px, var(--terracotta) 12px, transparent 12px, transparent 16px, var(--adire) 16px, var(--adire) 28px, transparent 28px, transparent 32px, var(--brass) 32px, var(--brass) 44px, transparent 44px, transparent 48px); margin: 0 28px; max-width: 1120px; margin-left: auto; margin-right: auto; border-radius: 2px; }
+
+/* SECTIONS */
+.section { padding: 88px 28px; max-width: 1120px; margin: 0 auto; }
+.section-label { font-size: 12px; font-weight: 700; color: var(--adire); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; }
+.section-title { font-family: var(--serif); font-size: 38px; color: var(--espresso); margin-bottom: 14px; line-height: 1.15; font-weight: 600; letter-spacing: -0.5px; }
+.section-desc { font-size: 16px; color: var(--stone); max-width: 520px; margin-bottom: 52px; line-height: 1.7; }
+
+/* STEPS */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.step { background: var(--white); border-radius: 20px; padding: 32px 24px 28px; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: transform 0.25s, box-shadow 0.25s; position: relative; overflow: hidden; }
+.step:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(28,20,16,0.08); }
+.step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.step:nth-child(1)::before { background: var(--terracotta); }
+.step:nth-child(2)::before { background: var(--adire); }
+.step:nth-child(3)::before { background: var(--brass); }
+.step:nth-child(4)::before { background: var(--terracotta); }
+.step-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+.step:nth-child(1) .step-icon { background: var(--terracotta-light); color: var(--terracotta); }
+.step:nth-child(2) .step-icon { background: var(--adire-light); color: var(--adire); }
+.step:nth-child(3) .step-icon { background: var(--brass-light); color: var(--brass); }
+.step:nth-child(4) .step-icon { background: var(--terracotta-light); color: var(--terracotta); }
+.step-icon .lucide { width: 22px; height: 22px; stroke-width: 1.5; }
+.step h3 { font-family: var(--serif); font-size: 18px; margin-bottom: 8px; color: var(--espresso); font-weight: 600; }
+.step p { font-size: 13.5px; color: var(--stone); line-height: 1.65; }
+
+/* DUAL ACCOUNTS */
+.dual-wrap { padding: 88px 28px; }
+.dual { max-width: 1120px; margin: 0 auto; background: var(--parchment-deep); border-radius: 28px; padding: 52px; position: relative; overflow: hidden; }
+.dual::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; background: radial-gradient(circle, var(--brass-glow) 0%, transparent 70%); pointer-events: none; }
+.toggle { display: flex; gap: 4px; margin-bottom: 40px; background: var(--sand); border-radius: 14px; padding: 4px; width: fit-content; }
+.toggle-btn { padding: 11px 28px; border-radius: 11px; border: none; background: transparent; cursor: pointer; font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--stone); transition: all 0.25s; }
+.toggle-btn.on { background: var(--white); color: var(--espresso); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.panel { display: none; }
+.panel.on { display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: start; }
+.features { display: flex; flex-direction: column; gap: 24px; }
+.feat { display: flex; gap: 16px; align-items: flex-start; }
+.feat-dot { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.feat-dot .lucide { width: 20px; height: 20px; stroke-width: 1.5; }
+.feat-dot-terra { background: var(--terracotta-light); color: var(--terracotta); }
+.feat-dot-adire { background: var(--adire-light); color: var(--adire); }
+.feat-dot-brass { background: var(--brass-light); color: var(--brass); }
+.feat h4 { font-size: 15px; font-weight: 700; color: var(--espresso); margin-bottom: 4px; }
+.feat p { font-size: 13px; color: var(--stone); line-height: 1.6; }
+
+/* TRUST */
+.trust-section { background: var(--cocoa); border-radius: 28px; margin: 0 28px; max-width: 1064px; margin-left: auto; margin-right: auto; padding: 60px 52px; color: var(--parchment); }
+.trust-section .section-label { color: var(--brass); }
+.trust-section .section-title { color: var(--parchment); }
+.trust-section .section-desc { color: var(--sand); }
+.money-flow { display: flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap; margin: 44px 0 36px; }
+.flow-node { text-align: center; padding: 12px 16px; border-radius: 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); }
+.flow-node .val { font-family: var(--serif); font-size: 20px; color: var(--brass); font-weight: 600; }
+.flow-node .lbl { font-size: 10.5px; color: var(--sand); margin-top: 3px; letter-spacing: 0.3px; }
+.flow-node .lucide { color: var(--brass); width: 20px; height: 20px; stroke-width: 1.5; }
+.flow-arr { color: var(--sand); font-size: 16px; opacity: 0.5; }
+.trust-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.trust-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; padding: 28px 24px; }
+.trust-card .tc-icon { margin-bottom: 16px; color: var(--brass); }
+.trust-card .tc-icon .lucide { width: 26px; height: 26px; stroke-width: 1.5; }
+.trust-card h3 { font-family: var(--serif); font-size: 17px; color: var(--parchment); margin-bottom: 8px; font-weight: 600; }
+.trust-card p { font-size: 13px; color: var(--sand); line-height: 1.65; }
+.callout { margin-top: 14px; padding: 18px 22px; border-radius: 14px; display: flex; gap: 14px; align-items: flex-start; }
+.callout-buyer { background: rgba(184,92,56,0.12); border: 1px solid rgba(184,92,56,0.2); }
+.callout-brand { background: rgba(27,94,75,0.15); border: 1px solid rgba(27,94,75,0.2); }
+.callout-icon { flex-shrink: 0; margin-top: 1px; }
+.callout-icon .lucide { width: 20px; height: 20px; stroke-width: 1.5; }
+.callout-buyer .callout-icon { color: var(--terracotta-light); }
+.callout-brand .callout-icon { color: var(--adire-light); }
+.callout p { font-size: 13px; color: var(--parchment); line-height: 1.65; }
+.callout strong { color: var(--brass); }
+
+/* FAQ */
+.faq-list { max-width: 680px; }
+.faq-item { border-bottom: 1px solid var(--sand); }
+.faq-q { width: 100%; background: none; border: none; padding: 22px 0; font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--espresso); text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; line-height: 1.4; }
+.faq-q .icon { width: 28px; height: 28px; border-radius: 50%; background: var(--parchment-deep); display: flex; align-items: center; justify-content: center; color: var(--terracotta); flex-shrink: 0; transition: transform 0.25s, background 0.25s; }
+.faq-q .icon .lucide { width: 16px; height: 16px; stroke-width: 2; }
+.faq-q.open .icon { transform: rotate(45deg); background: var(--terracotta-light); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.faq-a-inner { padding: 0 0 22px; font-size: 14px; color: var(--stone); line-height: 1.75; }
+
+/* FINAL CTA */
+.final { text-align: center; padding: 80px 28px 100px; position: relative; }
+.final::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 400px; background: radial-gradient(circle, var(--brass-glow) 0%, transparent 60%); pointer-events: none; }
+.final h2 { font-family: var(--serif); font-size: 44px; color: var(--espresso); margin-bottom: 16px; font-weight: 600; letter-spacing: -0.5px; position: relative; }
+.final h2 em { font-style: italic; color: var(--terracotta); font-weight: 400; }
+.final p { font-size: 16px; color: var(--stone); margin-bottom: 36px; position: relative; }
+
+/* FOOTER */
+.footer { background: var(--espresso); padding: 52px 28px 36px; color: var(--sand); }
+.footer-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; }
+.footer .logo { color: var(--parchment); display: block; margin-bottom: 12px; }
+.footer-about { font-size: 13px; line-height: 1.65; max-width: 280px; }
+.footer-col h4 { font-family: var(--serif); font-size: 14px; font-weight: 600; color: var(--parchment); margin-bottom: 16px; }
+.footer-col a { display: block; font-size: 13px; color: var(--sand); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+.footer-col a:hover { color: var(--parchment); }
+.footer-bottom { max-width: 1120px; margin: 36px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 12px; text-align: center; color: var(--stone); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; text-align: center; padding-top: 120px; gap: 40px; }
+  .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero-ctas { justify-content: center; flex-wrap: wrap; }
+  .hero-eyebrow { margin-left: auto; margin-right: auto; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .panel.on { grid-template-columns: 1fr; }
+  .trust-cards { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .nav-links a:not(.btn-wa) { display: none; }
+  .hero h1 { font-size: 38px; }
+  .section-title { font-size: 30px; }
+  .steps { grid-template-columns: 1fr; }
+  .dual { padding: 28px 20px; }
+  .trust-section { padding: 36px 24px; margin: 0 16px; }
+  .money-flow { gap: 3px; }
+  .flow-node { padding: 8px 10px; }
+  .flow-node .val { font-size: 16px; }
+  .final h2 { font-size: 32px; }
+  .hero-ctas { flex-direction: column; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .phone { width: 260px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">artizan<span>.</span></a>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#accounts">Buyers &amp; Brands</a>
+      <a href="#trust">Trust</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://api.whatsapp.com/send?phone=2347000000000&text=Hi%20Artizan!" class="btn-wa" target="_blank" rel="noopener">
+        <i data-lucide="message-circle" style="width:16px;height:16px;stroke-width:2"></i>
+        Start on WhatsApp
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">
+      <i data-lucide="layers" style="width:14px;height:14px;stroke-width:1.5"></i>
+      100% WhatsApp. Zero apps.
+    </div>
+    <h1>Sew anything.<br><em>Skip the visit.</em></h1>
+    <p class="hero-sub">Send a photo of any outfit on WhatsApp. Get quotes from Lagos' best artisans in 15 minutes. Your measurements saved once, used forever.</p>
+    <div class="hero-ctas">
+      <a href="https://api.whatsapp.com/send?phone=2347000000000&text=Hi%20Artizan!" class="btn-primary" target="_blank" rel="noopener">
+        Start on WhatsApp <i data-lucide="arrow-right" style="width:18px;height:18px;stroke-width:2"></i>
+      </a>
+      <a href="#how" class="btn-secondary">
+        <i data-lucide="play-circle" style="width:18px;height:18px;stroke-width:1.5"></i>
+        See how it works
+      </a>
+    </div>
+  </div>
+  <div style="position:relative;">
+    <div class="phone-glow"></div>
+    <div class="phone">
+      <div class="phone-body">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="wa-header">
+            <span class="back">‹</span>
+            <div class="wa-avatar">A</div>
+            <div><div class="wa-name">Artizan</div><div class="wa-status">online</div></div>
+          </div>
+          <div class="wa-body">
+            <div class="bubble bubble-in">Welcome to Artizan! Send me a photo of any outfit you'd like sewn.<div class="bubble-time">10:02</div></div>
+            <div class="bubble bubble-out"><div class="bubble-img"><i data-lucide="image" style="width:28px;height:28px;stroke-width:1.5"></i></div>I want this in ankara for a wedding next month<div class="bubble-time">10:03</div></div>
+            <div class="bubble bubble-in">Beautiful choice! I found <strong>5 artisans</strong> who specialize in this style near you. Quotes arriving in 15 mins.<div class="bubble-time">10:03</div></div>
+            <div class="bubble bubble-in">Here are your quotes:<br><br><strong>Stitches by Ada</strong><br>₦18,000 · 5 days · ★4.8<br><br><strong>TailorMade Lagos</strong><br>₦22,000 · 3 days · ★4.6<br><br><strong>Bespoke by Chidi</strong><br>₦25,000 · 4 days · ★4.9<br><br>Reply 1, 2, or 3 to select.<div class="bubble-time">10:18</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="woven"></div>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="section-label">How it works</div>
+  <h2 class="section-title">Image to outfit, four steps</h2>
+  <p class="section-desc">No app to download. No account to create. Everything happens in the chat you already use every day.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon"><i data-lucide="camera" style="stroke-width:1.5"></i></div>
+      <h3>Send your design</h3>
+      <p>Share a photo of the outfit you want. Tell us fabric, budget, and when you need it by.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon"><i data-lucide="target" style="stroke-width:1.5"></i></div>
+      <h3>Get matched</h3>
+      <p>We match your order to artisans by garment type, location, and price range. They quote within 15 minutes.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon"><i data-lucide="credit-card" style="stroke-width:1.5"></i></div>
+      <h3>Pick and pay</h3>
+      <p>Choose your artisan. Pay securely via your Artizan wallet. They start immediately with a 40% production advance.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon"><i data-lucide="truck" style="stroke-width:1.5"></i></div>
+      <h3>Delivered to you</h3>
+      <p>Track every stitch on WhatsApp. We dispatch straight to your door when it's ready.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BUYERS / BRANDS -->
+<section class="dual-wrap" id="accounts">
+  <div class="dual">
+    <div class="section-label">Built for everyone</div>
+    <h2 class="section-title">One platform, two experiences</h2>
+    <div class="toggle">
+      <button class="toggle-btn on" onclick="switchTab('buyers')">For Buyers</button>
+      <button class="toggle-btn" onclick="switchTab('brands')">For Brands</button>
+    </div>
+    <div id="tab-buyers" class="panel on">
+      <div class="features">
+        <div class="feat">
+          <div class="feat-dot feat-dot-terra"><i data-lucide="ruler"></i></div>
+          <div><h4>Measurements saved forever</h4><p>Measure once via video call, agent visit, AI scan, or manual input. Every future order uses your profile automatically.</p></div>
+        </div>
+        <div class="feat">
+          <div class="feat-dot feat-dot-adire"><i data-lucide="zap"></i></div>
+          <div><h4>Artisans compete for your order</h4><p>Up to 7 artisans quote on your design within 15 minutes. Compare price, timeline, and ratings — then choose.</p></div>
+        </div>
+        <div class="feat">
+          <div class="feat-dot feat-dot-brass"><i data-lucide="lock"></i></div>
+          <div><h4>Money protected until you approve</h4><p>Payment held in escrow. Your artisan's final 60% releases only after you review the delivered piece.</p></div>
+        </div>
+        <div class="feat">
+          <div class="feat-dot feat-dot-terra"><i data-lucide="package"></i></div>
+          <div><h4>Workshop to doorstep</h4><p>We handle pickup from the artisan and delivery to you. Real-time tracking on WhatsApp.</p></div>
+        </div>
+      </div>
+      <div class="phone" style="width:240px;">
+        <div class="phone-body">
+          <div class="phone-screen">
+            <div class="wa-header"><span class="back">‹</span><div class="wa-avatar">A</div><div><div class="wa-name">Artizan</div><div class="wa-status">online</div></div></div>
+            <div class="wa-body" style="min-height:280px;">
+              <div class="bubble bubble-in">Production update<br><br>✅ Order confirmed<br>✅ Fabric sourced<br>✅ Cutting done<br>🔄 <strong>Sewing in progress</strong><br>⬜ Quality check<br>⬜ Ready for delivery<div class="bubble-time">2:14 PM</div></div>
+              <div class="bubble bubble-out">Looking great!<div class="bubble-time">2:15 PM</div></div>
+              <div class="bubble bubble-in">Your outfit is ready! A rider is headed to you. ETA: 45 mins.<div class="bubble-time">Thu</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="tab-brands" class="panel">
+      <div class="features">
+        <div class="feat">
+          <div class="feat-dot feat-dot-adire"><i data-lucide="smartphone"></i></div>
+          <div><h4>Orders come to you</h4><p>Receive matched requests with the design image, buyer's measurements, budget range, and deadline. Quote with a simple reply.</p></div>
+        </div>
+        <div class="feat">
+          <div class="feat-dot feat-dot-brass"><i data-lucide="wallet"></i></div>
+          <div><h4>40% upfront on every order</h4><p>Once the buyer pays, you receive 40% instantly to start production. No more chasing deposits. Your remaining 60% releases after the buyer's review.</p></div>
+        </div>
+        <div class="feat">
+          <div class="feat-dot feat-dot-terra"><i data-lucide="star"></i></div>
+          <div><h4>Build your reputation</h4><p>Every order earns a review. Higher ratings mean higher match priority — your craft brings more customers to you.</p></div>
+        </div>
+        <div class="feat">
+          <div class="feat-dot feat-dot-adire"><i data-lucide="trending-up"></i></div>
+          <div><h4>Your price, your margins</h4><p>You receive your full quoted amount. Artizan's 15% fee is charged to the buyer on top — your margins stay intact.</p></div>
+        </div>
+      </div>
+      <div class="phone" style="width:240px;">
+        <div class="phone-body">
+          <div class="phone-screen">
+            <div class="wa-header"><span class="back">‹</span><div class="wa-avatar">A</div><div><div class="wa-name">Artizan</div><div class="wa-status">online</div></div></div>
+            <div class="wa-body" style="min-height:280px;">
+              <div class="bubble bubble-in">New order request!<br><br>Garment: Agbada<br>Fabric: Ankara<br>Budget: ₦15k–₦25k<br>Needed by: June 20<br>Design &amp; measurements attached<br><br>Reply with price and days, or "pass".<div class="bubble-time">9:41 AM</div></div>
+              <div class="bubble bubble-out">18000, 5 days<div class="bubble-time">9:44</div></div>
+              <div class="bubble bubble-in">You've been selected!<br>₦7,200 production advance incoming now.<div class="bubble-time">10:02</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust-section" id="trust">
+  <div class="section-label">How your money moves</div>
+  <h2 class="section-title">Transparent by design</h2>
+  <p class="section-desc">Every naira accounted for. No hidden fees. Both sides know what happens at each step.</p>
+  <div class="money-flow">
+    <div class="flow-node"><div class="val">100%</div><div class="lbl">Buyer pays</div></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-node"><div class="val">40%</div><div class="lbl">Brand advance</div></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-node"><div class="val"><i data-lucide="scissors" style="width:20px;height:20px;stroke-width:1.5"></i></div><div class="lbl">Production</div></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-node"><div class="val"><i data-lucide="truck" style="width:20px;height:20px;stroke-width:1.5"></i></div><div class="lbl">Delivery</div></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-node"><div class="val"><i data-lucide="star" style="width:20px;height:20px;stroke-width:1.5"></i></div><div class="lbl">Review</div></div>
+    <div class="flow-arr">→</div>
+    <div class="flow-node"><div class="val">60%</div><div class="lbl">Brand paid</div></div>
+  </div>
+  <div class="trust-cards">
+    <div class="trust-card">
+      <div class="tc-icon"><i data-lucide="shield-check"></i></div>
+      <h3>Escrow-protected</h3>
+      <p>Payment held securely by our banking partner until you approve. Artisans cannot access full payment until you're satisfied.</p>
+    </div>
+    <div class="trust-card">
+      <div class="tc-icon"><i data-lucide="scale"></i></div>
+      <h3>Fair to artisans</h3>
+      <p>40% upfront covers fabric and production. They quote their own price. Artizan's 15% is added on top, never taken from theirs.</p>
+    </div>
+    <div class="trust-card">
+      <div class="tc-icon"><i data-lucide="shield-alert"></i></div>
+      <h3>Disputes resolved</h3>
+      <p>Minor fixes re-done at no cost. Major issues get a refund. Artizan mediates every case. Three-strike quality policy.</p>
+    </div>
+  </div>
+  <div class="callout callout-buyer">
+    <div class="callout-icon"><i data-lucide="user"></i></div>
+    <p><strong>Buyers:</strong> Your review releases the artisan's final payment. A quick review means your artisan gets paid faster — we'll nudge you gently so they're not left waiting.</p>
+  </div>
+  <div class="callout callout-brand">
+    <div class="callout-icon"><i data-lucide="scissors"></i></div>
+    <p><strong>Brands:</strong> Your final 60% is released once the buyer completes their review after delivery. Great work and fast delivery means faster payment and better ratings that bring more orders.</p>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="section-label">Got questions?</div>
+  <h2 class="section-title">Frequently asked</h2>
+  <div class="faq-list">
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What is Artizan?<span class="icon"><i data-lucide="plus" style="width:16px;height:16px;stroke-width:2"></i></span></button><div class="faq-a"><div class="faq-a-inner">Artizan is a WhatsApp-based service that connects you with skilled tailors and fashion brands in Lagos. Send a photo of any outfit, get competitive quotes within 15 minutes, and have your custom piece delivered to your door — all without leaving WhatsApp.</div></div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How do I get started?<span class="icon"><i data-lucide="plus" style="width:16px;height:16px;stroke-width:2"></i></span></button><div class="faq-a"><div class="faq-a-inner">Tap "Start on WhatsApp" and send "Hi Artizan!" You'll be guided through a quick setup — name, location, and whether you're a buyer or brand. No app, no forms. About 60 seconds.</div></div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How are my body measurements taken?<span class="icon"><i data-lucide="plus" style="width:16px;height:16px;stroke-width:2"></i></span></button><div class="faq-a"><div class="faq-a-inner">Four options: WhatsApp video call (fastest — grab a friend and tape measure), a free home visit from a trained agent (most accurate), manual input if you know yours, or an AI quick estimate from a photo (beta). Saved permanently for all future orders.</div></div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is my payment safe?<span class="icon"><i data-lucide="plus" style="width:16px;height:16px;stroke-width:2"></i></span></button><div class="faq-a"><div class="faq-a-inner">Yes. Payment is held in escrow. The artisan receives 40% upfront to begin production. The remaining 60% is only released after you've received, reviewed, and approved the finished garment.</div></div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How long does production take?<span class="icon"><i data-lucide="plus" style="width:16px;height:16px;stroke-width:2"></i></span></button><div class="faq-a"><div class="faq-a-inner">Each artisan quotes their own timeline alongside price. Typical range is 3–7 days depending on complexity. You'll get real-time WhatsApp updates as your piece moves through production.</div></div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How does delivery work?<span class="icon"><i data-lucide="plus" style="width:16px;height:16px;stroke-width:2"></i></span></button><div class="faq-a"><div class="faq-a-inner">Artizan coordinates between artisan and you. A dispatch rider picks up the garment and brings it to your location. Delivery is priced by distance and shown before you pay.</div></div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How do I join as a brand?<span class="icon"><i data-lucide="plus" style="width:16px;height:16px;stroke-width:2"></i></span></button><div class="faq-a"><div class="faq-a-inner">Start on WhatsApp and select "Business account." Share your brand name, location, specialties, price range, and portfolio photos. Our team activates you within 24 hours.</div></div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What if I'm not happy with the result?<span class="icon"><i data-lucide="plus" style="width:16px;height:16px;stroke-width:2"></i></span></button><div class="faq-a"><div class="faq-a-inner">You have 24 hours after delivery to approve or raise a concern. Minor fit issues are adjusted at no extra cost. Major quality failures get a refund. Artizan mediates every dispute.</div></div></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <h2>Ready to sew <em>something?</em></h2>
+  <p>Send a design. Get quotes. Wear your story.</p>
+  <a href="https://api.whatsapp.com/send?phone=2347000000000&text=Hi%20Artizan!" class="btn-primary" target="_blank" rel="noopener" style="font-size:17px;padding:17px 40px;position:relative;">
+    Start on WhatsApp <i data-lucide="arrow-right" style="width:20px;height:20px;stroke-width:2"></i>
+  </a>
+</section>
+
+<div class="woven"></div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="logo">artizan<span>.</span></a>
+      <p class="footer-about">Custom fashion on WhatsApp. Sew anything, skip the visit. Made with care in Lagos.</p>
+    </div>
+    <div class="footer-col"><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Blog</a></div>
+    <div class="footer-col"><h4>Support</h4><a href="#">Help centre</a><a href="#">Terms</a><a href="#">Privacy</a></div>
+    <div class="footer-col"><h4>Connect</h4><a href="#">WhatsApp</a><a href="#">Instagram</a><a href="#">Twitter</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 Artizan. Handmade in Lagos, Nigeria.</div>
+</footer>
+
+<script>
+lucide.createIcons();
+function switchTab(t){
+  document.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('tab-'+t).classList.add('on');
+  event.target.classList.add('on');
+  lucide.createIcons();
+}
+function toggleFaq(b){
+  const a=b.nextElementSibling, open=b.classList.contains('open');
+  document.querySelectorAll('.faq-q').forEach(q=>{q.classList.remove('open');q.nextElementSibling.style.maxHeight='0';});
+  if(!open){b.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}
+}
+</script>
+</body>
+</html>
